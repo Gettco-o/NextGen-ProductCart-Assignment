@@ -9,7 +9,7 @@ import { SearchInput } from "./search-input/search-input";
   styleUrl: './navbar.css',
 })
 export class Navbar {
-  @Input() cartCount: number = 0;
+  @Input() cartCount!: number;
 
   searchQuery: string = '';
 

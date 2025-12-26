@@ -1,9 +1,9 @@
-<app-navbar (search)="onSearch($event)"/>
+<app-navbar [cartCount]="cart().length" (search)="onSearch($event)"/>
 
 <div class="product-list">
       @for (product of filteredProducts(); track $index) {
       <app-product-card [product]="product" 
-      [selectState]="activeProduct === product" 
+      [selectState]="cart().includes(product)" 
       (activeProduct)="setSelected($event)"/>
       }
 </div>

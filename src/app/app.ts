@@ -1,4 +1,4 @@
-import { Component, ContentChildren, QueryList, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { Navbar } from "./navbar/navbar";
 import { ProductCard } from "./product-card/product-card";
 import { Product } from './interfaces/product';
@@ -12,20 +12,10 @@ import { Product } from './interfaces/product';
 
 export class App {
 
-  activeProduct!: Product;
-
-  setSelected(product: Product) {
-    this.activeProduct = product;
-    console.log(this.activeProduct, 'selected product');
-    console.log(this.products(), 'all products');
-  }
-
   searchQuery: string = '';
 
   onSearch(query: string) {
     this.searchQuery = query;
-    console.log('Search query from App:', this.searchQuery);
-    console.log('filtered products:', this.filteredProducts());
   }
 
   filteredProducts() {
@@ -43,45 +33,63 @@ export class App {
   products = signal<Product[]>([
     {
       id: 1,
-      name: 'Product 1',
-      description: 'Description for Product 1',
-      price: 29.99,
-      imageUrl: 'https://via.placeholder.com/150'
+      name: 'Standing Fan',
+      description: 'Stay cool and comfortable with the TropicWhirl 18" Standing Fan, designed for reliable performance and quiet operation.',
+      price: 16000.00,
+      imageUrl: 'https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/09/3493814/1.jpg?9722'
     },
     {
       id: 2,
-      name: 'Product 2',
-      description: 'Description for Product 2',
-      price: 49.99,
-      imageUrl: 'https://via.placeholder.com/150'
+      name: 'Boscon Dry and Spary Iron',
+      description: 'It has an extended tip for easy reach into sleeves and pockets. Easy cleaning and resistant aluminium soleplate 1200W.',
+      price: 7500.00,
+      imageUrl: 'https://ng.jumia.is/unsafe/fit-in/680x680/filters:fill(white)/product/22/1989814/1.jpg?4681'
     },
     {
       id: 3,
-      name: 'Product 3',
-      description: 'Description for Product 3',
-      price: 19.99,
-      imageUrl: 'https://via.placeholder.com/150'
+      name: 'ECOFLO DELTA 2 Portable Solar Generator',
+      description: 'EcoFlow E980 is a High-Capacity portable power station designed for home backup, camping, RV trips, and outdoor work.',
+      price: 430000.00,
+      imageUrl: 'https://ng.jumia.is/unsafe/fit-in/680x680/filters:fill(white)/product/19/7049304/1.jpg?3768'
     },
     {
       id: 4,
-      name: 'Product 4',
-      description: 'Description for Product 4',
-      price: 39.99,
-      imageUrl: 'https://via.placeholder.com/150'
+      name: 'White Monospec Sneakers',
+      description: 'This footwear is classy and gets the attention of onlookers with trendy and gorgeous finish. It pairs well with all outfits',
+      price: 19500.00,
+      imageUrl: 'https://ng.jumia.is/unsafe/fit-in/680x680/filters:fill(white)/product/00/295531/1.jpg?1832'
     },
     {
       id: 5,
-      name: 'Product 5',
-      description: 'Description for Product 5',
-      price: 59.99,
-      imageUrl: 'https://via.placeholder.com/150'
+      name: 'Oraimo Spacebuds',
+      description: 'Not just a treat for your ears, SpaceBuds are a testament to the beauty of celestial events, crafted in the palm of your hand.',
+      price: 44000.00,
+      imageUrl: 'https://ng.jumia.is/unsafe/fit-in/680x680/filters:fill(white)/product/91/6994793/1.jpg?4273'
     },
     {
       id: 6,
-      name: 'Product 6',
-      description: 'Description for Product 6',
-      price: 69.99,
-      imageUrl: 'https://via.placeholder.com/150'
+      name: 'Haier Thermocool 200 Litres Chest Freezer',
+      description: 'Ideal for the smaller home, the Haier Thermocool Chest Freezer uses 75mm insulation and low noise operation to slot a home unnoticed.',
+      price: 400000.00,
+      imageUrl: 'https://ng.jumia.is/unsafe/fit-in/680x680/filters:fill(white)/product/73/1332231/1.jpg?6301'
     }
   ]);
+
+  cart = signal<Product[]>([]);
+
+  setSelected(product: Product) {
+    if (this.cart().includes(product)) {
+      this.removeFromCart(product);
+    } else {    
+    this.addToCart(product);
+    }
+  }
+
+  addToCart(product: Product) {
+    this.cart.update(currentCart => [...currentCart, product]);
+  }
+
+  removeFromCart(product: Product) {
+    this.cart.update(currentCart => currentCart.filter(p => p.id !== product.id));;
+  }
 }
