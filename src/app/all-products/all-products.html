@@ -1,0 +1,7 @@
+<div class="product-list">
+      @for (product of products(); track $index) {
+      <app-product-card [product]="product" 
+      [selectState]="productService.isInCart(product)" 
+      (activeProduct)="setSelected($event)" [routerLink]="['/products', product.id]" [queryParams]="{category: product.category}"/>
+      }
+</div>

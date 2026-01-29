@@ -28,5 +28,43 @@
 .product-card p {
     margin: 4px 0;
     font-size: 14px;
+}
+.blk-txt {
     color: #555;
+}
+.in-stock {
+    color: green;
+    font-weight: bold;
+}
+.out-of-stock {
+    color: red;
+    font-weight: bold;
+}
+.cart-btn {
+    background-color: #4a97f0;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 12px;
+}
+.cart-btn:hover {
+    background-color: #357abd;
+}
+.cart-btn-rmv {
+    background-color: #f04a4a;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 12px;
+}
+.cart-btn-rmv:hover {
+    background-color: #bd3535;
 }

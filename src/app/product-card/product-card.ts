@@ -14,6 +14,7 @@ export class ProductCard {
 
   @Input() product!: Product;
   @Input() selectState: boolean = false;
+  @Input() showCartBtn: boolean = false;
 
   @Output() activeProduct = new EventEmitter<Product>();
 

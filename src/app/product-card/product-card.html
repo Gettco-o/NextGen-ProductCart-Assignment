@@ -1,6 +1,23 @@
-<div class="product-card" (click)="onSelect()" [ngClass]="{'selected': selectState }">
+<div class="product-card" [ngClass]="{'selected': selectState }">
       <img [src]="product.imageUrl" [alt]="product.name">
       <h3>{{ product.name }}</h3>
-      <p>{{ product.description }}</p>
-      <p>Price: ₦{{ product.price }}</p>
+      <p class="blk-txt">{{ product.description }}</p>
+      <p class="blk-txt">Price: ₦{{ product.price }}</p>
+      @if (product.inStock) {
+            <p class="in-stock">In Stock</p>
+      }
+      @else {
+            <p class="out-of-stock">Out of Stock</p>
+      }
+      <p class="blk-txt">Rating: {{ product.rating }} / 5</p>
+
+      @if (showCartBtn) {
+            @if (!selectState) {
+            <button class="cart-btn" (click)="$event.stopPropagation();onSelect()">Add to cart</button>
+            }
+            @else {
+                  <button class="cart-btn-rmv" (click)="$event.stopPropagation();onSelect()">Remove from cart</button>
+            }
+      }
+      
 </div>
