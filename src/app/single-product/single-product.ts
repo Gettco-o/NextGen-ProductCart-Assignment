@@ -1,8 +1,9 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { ProductCard } from "../product-card/product-card";
 import { productService } from '../services/product';
 import { Product } from '../interfaces/product';
 import { ActivatedRoute } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 
 @Component({
@@ -16,6 +17,8 @@ export class SingleProduct {
   private route = inject(ActivatedRoute);
   product = signal<Product>({} as Product);
   cart = signal<Product[]>([]);
+  private destroyRef = inject(DestroyRef);
+
 
   ngOnInit() {
     console.log('SingleProduct component initialized');
@@ -29,9 +32,11 @@ export class SingleProduct {
   }
 
   getProduct(id: string) {
-    this.productService.getProductById(id).subscribe((product) => {
+    this.productService.getProductById(id)
+    .pipe(takeUntilDestroyed(this.destroyRef))
+    .subscribe((product) => {
       this.product.set(product);
-    }); 
+    });
   }
 
   setSelected(product: Product) {

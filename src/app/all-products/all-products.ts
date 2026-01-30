@@ -1,8 +1,9 @@
-import { Component, inject, signal} from '@angular/core';
+import { Component, DestroyRef, inject, signal} from '@angular/core';
 import { productService } from '../services/product';
 import { Product } from '../interfaces/product';
 import { ProductCard } from '../product-card/product-card';
 import { RouterLink } from "@angular/router";
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-all-products',
@@ -13,12 +14,16 @@ import { RouterLink } from "@angular/router";
 export class AllProducts {
   productService = inject(productService);
 
+  private destroyRef = inject(DestroyRef);
+
   products = signal<Product[]>([]);
 
   cart = signal<Product[]>([]);
 
   ngOnInit() {
-    this.productService.getAllProducts().subscribe((data) => {
+    this.productService.getAllProducts()
+    .pipe(takeUntilDestroyed(this.destroyRef))
+    .subscribe((data) => {
       this.products.set(data);
     });
 
