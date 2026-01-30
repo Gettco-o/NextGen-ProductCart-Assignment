@@ -7,8 +7,11 @@ export interface Product {
       imageUrl: string;
       inStock: boolean;
       rating: number;
+      properties: p[];
 }
 
-export interface ProductResponse {
-    products: Product[];
+
+interface p {
+    color: string;
+    weight: string;
 }

@@ -1,62 +1,96 @@
-{"products": [
+{
+  "products": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Standing Fan",
       "description": "Stay cool and comfortable with the TropicWhirl 18\" Standing Fan, designed for reliable performance and quiet operation.",
-      "price": 16000.00,
+      "price": 16000,
       "category": "Electronics",
       "imageUrl": "https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/09/3493814/1.jpg?9722",
       "inStock": true,
       "rating": 4.5
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Boscon Dry and Spary Iron",
       "description": "It has an extended tip for easy reach into sleeves and pockets. Easy cleaning and resistant aluminium soleplate 1200W.",
-      "price": 7500.00,
+      "price": 7500,
       "category": "Electronics",
       "imageUrl": "https://ng.jumia.is/unsafe/fit-in/680x680/filters:fill(white)/product/22/1989814/1.jpg?4681",
       "inStock": true,
       "rating": 4.2
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "ECOFLO DELTA 2 Portable Solar Generator",
       "description": "EcoFlow E980 is a High-Capacity portable power station designed for home backup, camping, RV trips, and outdoor work.",
-      "price": 430000.00,
+      "price": 430000,
       "category": "Electronics",
       "imageUrl": "https://ng.jumia.is/unsafe/fit-in/680x680/filters:fill(white)/product/19/7049304/1.jpg?3768",
       "inStock": true,
       "rating": 4.8
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "White Monospec Sneakers",
       "description": "This footwear is classy and gets the attention of onlookers with trendy and gorgeous finish. It pairs well with all outfits",
-      "price": 19500.00,
+      "price": 19500,
       "category": "Footwear",
       "imageUrl": "https://ng.jumia.is/unsafe/fit-in/680x680/filters:fill(white)/product/00/295531/1.jpg?1832",
       "inStock": true,
-      "rating": 4.0
+      "rating": 4
     },
     {
-      "id": 5,
+      "id": "5",
       "name": "Oraimo Spacebuds",
       "description": "Not just a treat for your ears, SpaceBuds are a testament to the beauty of celestial events, crafted in the palm of your hand.",
-      "price": 44000.00,
+      "price": 44000,
       "category": "Electronics",
       "imageUrl": "https://ng.jumia.is/unsafe/fit-in/680x680/filters:fill(white)/product/91/6994793/1.jpg?4273",
       "inStock": true,
       "rating": 4.7
     },
     {
-      "id": 6,
+      "id": "6",
       "name": "Haier Thermocool 200 Litres Chest Freezer",
       "description": "Ideal for the smaller home, the Haier Thermocool Chest Freezer uses 75mm insulation and low noise operation to slot a home unnoticed.",
-      "price": 400000.00,
+      "price": 400000,
       "category": "Electronics",
       "imageUrl": "https://ng.jumia.is/unsafe/fit-in/680x680/filters:fill(white)/product/73/1332231/1.jpg?6301",
       "inStock": true,
-      "rating": 4.0
+      "rating": 4
+    },
+    {
+      "id": "be68",
+      "name": "Phone",
+      "description": "A very good phone",
+      "price": 3000,
+      "category": "Electronics",
+      "imageUrl": "https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/09/3493814/1.jpg?9722",
+      "instock": true,
+      "rating": 0,
+      "properties": [
+        {
+          "color": "Black",
+          "weight": "1.2kg"
+        }
+      ]
+    },
+    {
+      "id": "a26f",
+      "name": "Phone2",
+      "description": "Another good phone",
+      "price": 3000,
+      "category": "Electronics",
+      "imageUrl": "https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/09/3493814/1.jpg?9722",
+      "instock": true,
+      "rating": 0,
+      "properties": [
+        {
+          "color": "white",
+          "weight": "1,1kg"
+        }
+      ]
     }
-  ]}
+  ]
+}
