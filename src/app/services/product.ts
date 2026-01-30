@@ -28,7 +28,7 @@ export class productService {
     
   }
 
-  getProductById(id: number) {
+  getProductById(id: string) {
     return this.http.get<Product>(
       `http://127.0.0.1:3000/products/${id}`
     );

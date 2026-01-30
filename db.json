@@ -91,6 +91,26 @@
           "weight": "1,1kg"
         }
       ]
+    },
+    {
+      "id": "ee56",
+      "name": "Solar Battery",
+      "description": "A 2000W solar battery",
+      "price": 1000,
+      "category": "Electronics",
+      "imageUrl": "https://ng.jumia.is/unsafe/fit-in/680x680/filters:fill(white)/product/19/7049304/1.jpg?3768",
+      "inStock": true,
+      "rating": 0,
+      "properties": [
+        {
+          "color": "black",
+          "weight": "4kg"
+        },
+        {
+          "color": "white",
+          "weight": "4kg"
+        }
+      ]
     }
   ]
 }

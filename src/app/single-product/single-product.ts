@@ -20,7 +20,7 @@ export class SingleProduct {
   ngOnInit() {
     console.log('SingleProduct component initialized');
     this.route.params.subscribe(params => {
-      const productId = +params['id'];
+      const productId = params['id'];
       console.log('YO Fetching product with ID:', productId);
       this.getProduct(productId);
     });
@@ -28,7 +28,7 @@ export class SingleProduct {
     this.cart = this.productService.getCart();
   }
 
-  getProduct(id: number) {
+  getProduct(id: string) {
     this.productService.getProductById(id).subscribe((product) => {
       this.product.set(product);
     }); 

@@ -21,7 +21,7 @@ export class NewProduct {
     price: [0, [Validators.required, Validators.min(50)]],
     category: ['', Validators.required],
     imageUrl: ['', [Validators.required, Validators.pattern(/^https?:\/\/.+\.(png|jpg|jpeg|gif|svg|webp)(\?.*)?$/i)]],
-    instock: [true],
+    inStock: [true],
     rating: [0, Validators.required],
     properties: this.fb.array([
       this.createProperty()
