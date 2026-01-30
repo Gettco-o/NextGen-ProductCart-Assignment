@@ -18,7 +18,7 @@ export class productService {
   private selectedProduct = signal<Product>({} as Product);
 
   getAllProducts() {
-    this.http.get<ProductResponse>('db.json')
+    this.http.get<ProductResponse>('http://127.0.0.1:3000')
     .subscribe((response: ProductResponse) => {
       this.products.next(response.products);
       this.allProducts.set(response.products);
@@ -29,7 +29,7 @@ export class productService {
   }
 
   getProductById(id: number) {
-    return this.http.get<ProductResponse>('db.json').pipe(
+    return this.http.get<ProductResponse>('http://127.0.0.1:3000').pipe(
       map(response => response.products.find(product => product.id === id) as Product)
     );
 
