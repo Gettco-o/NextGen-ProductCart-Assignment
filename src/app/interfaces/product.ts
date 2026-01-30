@@ -8,7 +8,3 @@ export interface Product {
       inStock: boolean;
       rating: number;
 }
-
-export interface ProductResponse {
-    products: Product[];
-}

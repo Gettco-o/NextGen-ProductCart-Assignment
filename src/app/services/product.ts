@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject, signal } from '@angular/core';
-import { Product, ProductResponse } from '../interfaces/product';
-import { BehaviorSubject, map } from 'rxjs';
+import { Product } from '../interfaces/product';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -18,10 +18,10 @@ export class productService {
   private selectedProduct = signal<Product>({} as Product);
 
   getAllProducts() {
-    this.http.get<ProductResponse>('http://127.0.0.1:3000')
-    .subscribe((response: ProductResponse) => {
-      this.products.next(response.products);
-      this.allProducts.set(response.products);
+    this.http.get<Product[]>('http://127.0.0.1:3000/products')
+    .subscribe((response: Product[]) => {
+      this.products.next(response);
+      this.allProducts.set(response);
     });
 
     return this.products;
@@ -29,10 +29,9 @@ export class productService {
   }
 
   getProductById(id: number) {
-    return this.http.get<ProductResponse>('http://127.0.0.1:3000').pipe(
-      map(response => response.products.find(product => product.id === id) as Product)
+    return this.http.get<Product>(
+      `http://127.0.0.1:3000/products/${id}`
     );
-
   }
 
   getCart() {
@@ -58,5 +57,9 @@ export class productService {
       product.description.toLowerCase().includes(query.toLowerCase())
     ));
 
+  }
+
+  createProduct(product: any): Observable<Product> {
+    return this.http.post<Product>('http://127.0.0.1:3000/products', product);
   }
 }
