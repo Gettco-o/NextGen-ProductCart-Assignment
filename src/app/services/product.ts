@@ -59,4 +59,12 @@ export class productService {
     ));
 
   }
+
+  createProduct(product: Product) {
+    this.http.post('db.json', product).subscribe(() => {
+      const updatedProducts = [...this.allProducts(), product];
+      this.allProducts.set(updatedProducts);
+      this.products.next(updatedProducts);
+    });
+  }
 }

@@ -1,0 +1,128 @@
+<div class="form-container">
+      <h2>New Product</h2>
+      <form [formGroup]="productForm">
+            <label>
+                  Name:
+                  <input formControlName="name" />
+                  @if (productForm.controls.name.touched && productForm.controls.name.dirty) {
+                        <ng-container>
+                              @if (productForm.controls.name.errors?.['required']) {
+                                    <p class="error">Field is required</p>
+                              }
+                              @if (productForm.controls.name.errors?.['minlength']) {
+                                    <p class="error">Minimum length is 3 characters</p>
+                              }      
+                        </ng-container>
+                        
+                  }
+            </label>
+            <br />
+            <label>
+                  Description:
+                  <textarea formControlName="description"></textarea>
+                  @if (productForm.controls.description.touched && productForm.controls.description.dirty) {
+                        <ng-container>
+                              @if (productForm.controls.description.errors?.['required']) {
+                                    <p class="error">Field is required</p>
+                              }
+                              @if (productForm.controls.description.errors?.['minlength']) {
+                                    <p class="error">Minimum length is 10 characters</p>
+                              }      
+                        </ng-container>
+                        
+                  }
+            </label>
+            <br />
+            <label>
+                  Price:
+                  <input type="number" formControlName="price" />
+                  @if (productForm.controls.price.touched && productForm.controls.price.dirty) {
+                        <ng-container>
+                              @if (productForm.controls.price.errors?.['required']) {
+                                    <p class="error">Field is required</p>
+                              }
+                              @if (productForm.controls.price.errors?.['min']) {
+                                    <p class="error">Price must be at least 50</p>
+                              }      
+                        </ng-container>
+                        
+                  }
+            </label>
+            <br />
+            <label>
+                  Category:
+                  <input formControlName="category" />
+                  @if (productForm.controls.category.touched && productForm.controls.category.dirty) {
+                        <ng-container>
+                              @if (productForm.controls.category.errors?.['required']) {
+                                    <p class="error">Field is required</p>
+                              }
+                        </ng-container>
+                  }
+            </label>
+            <br />
+            <label>
+                  InStock: 
+                  <input class="check" formControlName="instock" type="checkbox" />
+                  @if (productForm.controls.instock.touched && productForm.controls.instock.dirty) {
+                        
+                  }
+            </label>
+            <br />
+            <label>
+                  Image URL:
+                  <input formControlName="imageUrl" />
+                  @if (productForm.controls.imageUrl.touched && productForm.controls.imageUrl.dirty) {
+                        <ng-container>
+                              @if (productForm.controls.imageUrl.errors?.['required']) {
+                                    <p class="error">Field is required</p>
+                              }
+                              @if (productForm.controls.imageUrl.errors?.['pattern']) {
+                                    <p class="error">Enter a valid URL</p>
+                              }      
+                        </ng-container>
+                        
+                  }
+            </label>
+            <br />
+            <div formArrayName="properties" class="props">
+                  @for (property of properties.controls; track $index; let i = $index) {
+                  <div [formGroupName]="i">
+                        <label>
+                              Color:
+                              <input formControlName="color" />
+                              @if (property.get('color')?.touched && property.get('color')?.dirty) {
+                                    <ng-container>
+                                          @if (property.get('color')?.errors?.['required']) {
+                                                <p class="error">Field is required</p>
+                                          }
+                                    </ng-container>
+                              }
+                        </label>
+            
+                        <label>
+                              Weight:
+                              <input formControlName="weight" />
+                              @if (property.get('weight')?.touched && property.get('weight')?.dirty) {
+                                    <ng-container>
+                                          @if (property.get('weight')?.errors?.['required']) {
+                                                <p class="error">Field is required</p>
+                                          }
+                                    </ng-container>
+                              }
+                        </label>
+            
+                        <span (click)="removeProperty(i)">
+                              Remove Property
+                        </span>
+                        <br />
+                  </div>
+                  }
+            </div>
+
+            <span (click)="addProperty()">Add Property</span>
+            <br />
+            <button type="submit" [disabled]="productForm.invalid" (click)="submitForm()">Create Product</button>
+            {{productForm.valid}}
+      </form>
+</div>

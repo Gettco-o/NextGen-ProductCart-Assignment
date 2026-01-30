@@ -1,0 +1,94 @@
+.form-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    margin-top: 72px;
+    font-family: Arial, sans-serif;
+}
+
+form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+}
+label {
+    font-weight: bold;
+}
+input, textarea, select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+.check {
+      width: auto;
+}
+button {
+    padding: 10px 15px;
+    width: fit-content;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #007bff;
+}
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+button:disabled:hover {
+    background-color: #ccc;
+}
+button:hover {
+    background-color: #0056b3;
+}
+
+.props {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.props input {
+    flex: 1;
+}
+.props span {
+      color: #dc3545;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 12px;
+}
+.props span:hover {
+      text-decoration: underline;
+      color: #c82333;
+}
+
+form span {
+      color: #007bff;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 12px;
+}
+form span:hover {
+      text-decoration: underline;
+      color: #0056b3;
+}
+
+.error {
+    color: red;
+    font-size: 12px;
+    margin-top: 4px;
+    font-weight: 100;
+}
+
+@media (max-width: 768px) {
+      .props {
+            flex-direction: column;
+            align-items: stretch;
+      }
+}
