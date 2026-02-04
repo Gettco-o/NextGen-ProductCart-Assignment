@@ -1,11 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule, FormArray, FormGroup } from '@angular/forms';
+import { AsyncPipe } from '@angular/common';
 import { productService } from '../services/product';
 import { Router } from '@angular/router';
+import { StateService } from '../services/state-service';
 
 @Component({
   selector: 'app-new-product',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, AsyncPipe],
   templateUrl: './new-product.html',
   styleUrl: './new-product.css',
 })
@@ -14,6 +16,9 @@ export class NewProduct {
   private fb = inject(FormBuilder);
   private prodService = inject(productService);
   private router = inject(Router);
+  private state = inject(StateService);
+
+  error$ = this.state.error$;
 
   productForm = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(3)]],
@@ -48,18 +53,22 @@ export class NewProduct {
   }
 
   submitForm() {
-    console.log(this.productForm.value);
     this.prodService.createProduct(this.productForm.value).subscribe({
       next: (res) => {
         alert('Product created successfully!');
+        this.state.addProduct(res);
         this.productForm.reset();
         this.router.navigate(['']);
+
       },
       error: (err) => {
-        //console.error('Error creating product:', err);
-        alert('Failed to create product. Please try again.');
+        console.error(err);
       }
     });
+  }
+
+  clearError() {
+    this.state.setError(null);
   }
   
 }

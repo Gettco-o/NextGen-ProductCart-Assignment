@@ -1,36 +1,32 @@
-import { Component, DestroyRef, inject, signal} from '@angular/core';
+import { Component, inject} from '@angular/core';
 import { productService } from '../services/product';
 import { Product } from '../interfaces/product';
 import { ProductCard } from '../product-card/product-card';
 import { RouterLink } from "@angular/router";
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { StateService } from '../services/state-service';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-all-products',
-  imports: [ProductCard, RouterLink],
+  imports: [ProductCard, RouterLink, AsyncPipe],
   templateUrl: './all-products.html',
   styleUrl: './all-products.css',
 })
 export class AllProducts {
-  productService = inject(productService);
+  private productService = inject(productService);
+  state = inject(StateService);
 
-  private destroyRef = inject(DestroyRef);
+  products$ = this.state.products$;
 
-  products = signal<Product[]>([]);
+  error$ = this.state.error$;
 
-  cart = signal<Product[]>([]);
+  loading$ = this.state.loading$;
 
   ngOnInit() {
-    this.productService.getAllProducts()
-    .pipe(takeUntilDestroyed(this.destroyRef))
-    .subscribe((data) => {
-      this.products.set(data);
-    });
-
-    this.cart = this.productService.getCart();
+    this.productService.getAllProducts();
   }
   
   setSelected(product: Product) {
-    this.productService.updateCart(product);
+    this.state.toggleCartItem(product);
   }
 }

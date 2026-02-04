@@ -1,2 +1,33 @@
-<app-product-card [product]="product()" [showCartBtn]="true" [selectState]="productService.isInCart(product())" 
-      (activeProduct)="setSelected($event)"/>
+<div class="single-product-container">
+
+      @if (loading$ | async) {
+            <div class="loader-container" role="status" aria-live="polite" aria-label="Loading product">
+                  <div class="spinner" aria-hidden="true"></div>
+                  <span class="sr-only">Loading product…</span>
+            </div>
+      }
+      @else {
+            @if (error$ | async) {
+                  <div class="error-panel" role="alert">
+                        <h3 class="error-title">Could not load product</h3>
+                        <p class="error-message">{{ error$ | async }}</p>
+                  </div>
+            }
+            @else {
+                  @if (product$ | async) {
+                        <app-product-card
+                              [product]="(product$ | async)!"
+                              [showCartBtn]="true"
+                              [selectState]="state.isInCart((product$ | async)!)"
+                              (activeProduct)="setSelected($event)"
+                        />
+                  }
+                  @else {
+                        <div class="empty-panel">
+                              <p>Product not found.</p>
+                        </div>
+                  }
+            }
+      }
+
+</div>

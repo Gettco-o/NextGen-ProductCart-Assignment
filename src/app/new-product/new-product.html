@@ -1,4 +1,12 @@
 <div class="form-container">
+      @if (error$ | async) {
+            <div class="top-error-banner" role="alert">
+                  <div class="top-error-content">
+                        <span class="error-text">{{ error$ | async }}</span>
+                        <button class="error-close" (click)="clearError()" aria-label="Dismiss error">✕</button>
+                  </div>
+            </div>
+      }
       <h2>New Product</h2>
       <form [formGroup]="productForm">
             <label>

@@ -1,12 +1,11 @@
 .form-container {
-    max-width: 600px;
-    margin: 0 auto;
+    /* basic form layout */
+    max-width: 900px;
+    margin: 48px auto;
     padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-    margin-top: 72px;
-    font-family: Arial, sans-serif;
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
 
 form {
@@ -15,6 +14,26 @@ form {
       gap: 12px;
 
 }
+/* Top error banner */
+.top-error-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(90deg,#ffe9e9,#fff0f0);
+  border-bottom: 1px solid #f5c2c7;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  padding: 8px 12px;
+}
+.top-error-content { max-width: 1100px; width: 100%; display:flex; align-items:center; justify-content:space-between; }
+.error-text { color: #922c2c; font-weight: 600; }
+.error-close { background: transparent; border: none; color: #922c2c; font-size: 16px; cursor: pointer; }
+
+/* push content down a little so fixed banner doesn't overlap form */
+.form-container { padding-top: 56px; }
+
 label {
     font-weight: bold;
 }

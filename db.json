@@ -111,6 +111,22 @@
           "weight": "4kg"
         }
       ]
+    },
+    {
+      "id": "760f",
+      "name": "Stock",
+      "description": "Description of stock",
+      "price": 220,
+      "category": "Electronics",
+      "imageUrl": "https://ng.jumia.is/unsafe/fit-in/680x680/filters:fill(white)/product/91/6994793/1.jpg?4273",
+      "inStock": true,
+      "rating": 0,
+      "properties": [
+        {
+          "color": "red",
+          "weight": "50g"
+        }
+      ]
     }
   ]
 }

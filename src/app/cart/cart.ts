@@ -1,20 +1,17 @@
-import { Component, inject, signal } from '@angular/core';
-import { Product } from '../interfaces/product';
-import { productService } from '../services/product';
+import { Component, inject } from '@angular/core';
 import { ProductCard } from '../product-card/product-card';
+import { StateService } from '../services/state-service';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-cart',
-  imports: [ProductCard],
+  imports: [ProductCard, AsyncPipe],
   templateUrl: './cart.html',
   styleUrl: './cart.css',
 })
 export class Cart {
-  productService = inject(productService);
+  state = inject(StateService);
 
-  cart = signal<Product[]>([]);
+  cart$ = this.state.cart$;
 
-  ngOnInit() {
-    this.cart = this.productService.getCart();
-  }
 }
