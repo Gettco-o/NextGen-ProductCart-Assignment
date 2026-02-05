@@ -17,23 +17,7 @@ export class StateService {
   readonly loading$ = this._loading$.asObservable();
   readonly error$ = this._error$.asObservable();
 
-  readonly productsCount$ = this.products$.pipe(map(products => products.length));
   readonly cartCount$ = this.cart$.pipe(map(cart => cart.length));
-  readonly cartTotal$ = this.cart$.pipe(
-    map(cart => cart.reduce((sum, p) => sum + (p.price ?? 0), 0))
-  );
-
-  get productsSnapshot(): Product[] {
-    return [...this._products$.value];
-  }
-
-  get cartSnapshot(): Product[] {
-    return [...this._cart$.value];
-  }
-
-  get loadingSnapshot(): boolean {
-    return this._loading$.value;
-  }
 
   setProducts(products: Product[]): void {
     this._products$.next([...products]);

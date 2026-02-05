@@ -21,10 +21,6 @@ export class App {
 
   cart = this.state.cart$
 
-  ngOnInit() {
-    //this.cart = this.productService.getCart();
-  }
-
   onSearch(query: string) {
     this.productService.filterProducts(query);
   }
