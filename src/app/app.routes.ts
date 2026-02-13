@@ -7,9 +7,6 @@ import { NewProduct } from './new-product/new-product';
 import { Login } from './login/login';
 import { authGuard } from './guards/auth-guard';
 
-// apply the authguard to all routes except login & wildcard routes.
-
-
 export const routes: Routes = [
       {path: '', component: Login},
       {path: 'products', component: AllProducts, canActivate: [authGuard]},
