@@ -1,42 +1,47 @@
+@if (isauthenticated$ | async) {
+<div class="welcome-banner">
+      <h1>Welcome back! {{authService.getCurrentUser()}} </h1>
+      <p>Explore our latest products and find something you love.</p>
+</div>
+
 <div class="all-products-container">
 
       @if (loading$ | async) {
-            <div class="loader-container" role="status" aria-live="polite" aria-label="Loading">
-                  <div class="spinner" aria-hidden="true"></div>
-                  <span class="sr-only">Loading…</span>
-            </div>
+      <div class="loader-container" role="status" aria-live="polite" aria-label="Loading">
+            <div class="spinner" aria-hidden="true"></div>
+            <span class="sr-only">Loading…</span>
+      </div>
       }
       @else {
-            @if (error$ | async) {
-                  <div class="error-panel" role="alert">
-                        <h2 class="error-title">Something went wrong</h2>
-                        <p class="error-message">{{ error$ | async }}</p>
-                        <div class="error-actions">
-                              <button class="btn-retry">Retry</button>
-                        </div>
-                  </div>
+      @if (error$ | async) {
+      <div class="error-panel" role="alert">
+            <h2 class="error-title">Something went wrong</h2>
+            <p class="error-message">{{ error$ | async }}</p>
+            <div class="error-actions">
+                  <button class="btn-retry">Retry</button>
+            </div>
+      </div>
+      }
+      @else {
+      @if ((products$ | async)?.length === 0) {
+      <div class="empty-panel">
+            <h3>No products yet</h3>
+            <p>Start adding products to see them here.</p>
+      </div>
+      }
+      @else {
+      <div class="product-grid">
+            @for (product of products$ | async; track $index) {
+            <app-product-card [product]="product" [selectState]="state.isInCart(product)"
+                  (activeProduct)="setSelected($event)" [routerLink]="['/products', product.id]"
+                  [queryParams]="{category: product.category}" />
             }
-            @else {
-                  @if ((products$ | async)?.length === 0) {
-                        <div class="empty-panel">
-                              <h3>No products yet</h3>
-                              <p>Start adding products to see them here.</p>
-                        </div>
-                  }
-                  @else {
-                        <div class="product-grid">
-                              @for (product of products$ | async; track $index) {
-                                    <app-product-card
-                                          [product]="product"
-                                          [selectState]="state.isInCart(product)"
-                                          (activeProduct)="setSelected($event)"
-                                          [routerLink]="['/products', product.id]"
-                                          [queryParams]="{category: product.category}"
-                                    />
-                              }
-                        </div>
-                  }
-            }
+      </div>
+      }
+      }
       }
 
 </div>
+
+
+}

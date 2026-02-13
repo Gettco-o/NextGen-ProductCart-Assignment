@@ -5,6 +5,7 @@ import { ProductCard } from '../product-card/product-card';
 import { RouterLink } from "@angular/router";
 import { StateService } from '../services/state-service';
 import { AsyncPipe } from '@angular/common';
+import { Auth } from '../services/auth';
 
 @Component({
   selector: 'app-all-products',
@@ -14,6 +15,9 @@ import { AsyncPipe } from '@angular/common';
 })
 export class AllProducts {
   private productService = inject(productService);
+
+  authService = inject(Auth);
+
   state = inject(StateService);
 
   products$ = this.state.products$;
@@ -21,6 +25,8 @@ export class AllProducts {
   error$ = this.state.error$;
 
   loading$ = this.state.loading$;
+
+  isauthenticated$ = this.authService.isAuthenticated$;
 
   ngOnInit() {
     this.productService.getAllProducts();

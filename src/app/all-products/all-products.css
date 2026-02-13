@@ -94,3 +94,13 @@
     color: #555;
 }
 .empty-panel h3 { margin: 0 0 8px 0; }
+
+.welcome-banner {
+    background: #e6f4ea;
+    border: 1px solid #c3e0c9;
+    color: #2c662d;
+    padding: 24px 32px;
+    border-radius: 6px;
+    text-align: center;
+    margin-bottom: 24px;
+}

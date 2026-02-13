@@ -4,12 +4,18 @@ import { SingleProduct } from './single-product/single-product';
 import { Cart } from './cart/cart';
 import { Notfound } from './notfound/notfound';
 import { NewProduct } from './new-product/new-product';
+import { Login } from './login/login';
+import { authGuard } from './guards/auth-guard';
+
+// apply the authguard to all routes except login & wildcard routes.
+
 
 export const routes: Routes = [
-      {path: '', component: AllProducts},
-      {path: 'products/:id', component: SingleProduct},
-      {path: 'cart', component: Cart},
-      {path: 'product/new', component: NewProduct},
+      {path: '', component: Login},
+      {path: 'products', component: AllProducts, canActivate: [authGuard]},
+      {path: 'products/:id', component: SingleProduct, canActivate: [authGuard]},
+      {path: 'cart', component: Cart, canActivate: [authGuard]},
+      {path: 'product/new', component: NewProduct, canActivate: [authGuard]},
       {path: '**', component: Notfound}
 ];
 
