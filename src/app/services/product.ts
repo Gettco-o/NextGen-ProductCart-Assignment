@@ -21,7 +21,7 @@ export class productService {
     this.state.setLoading(true);
     this.state.setError(null);
 
-    this.http.get<Product[]>('http://127.0.0.1:3000/products')
+    this.http.get<Product[]>('http://127.0.0.1:3000/api/v1/products')
     .pipe(
       catchError(err => this.errorHandler.handleError(err))
     )
@@ -44,7 +44,7 @@ export class productService {
     this.state.setError(null);
 
     this.http.get<Product>(
-      `http://127.0.0.1:3000/products/${id}`
+      `http://127.0.0.1:3000/api/v1/products/${id}`
     )
     .pipe(catchError(err => this.errorHandler.handleError(err)))
     .subscribe({
@@ -69,7 +69,7 @@ export class productService {
   }
 
   createProduct(product: any): Observable<Product> {
-    return this.http.post<Product>('http://127.0.0.1:3000/products', product)
+    return this.http.post<Product>('http://127.0.0.1:3000/api/v1/products', product)
     .pipe(catchError(err => this.errorHandler.handleError(err)));
   }
 }
