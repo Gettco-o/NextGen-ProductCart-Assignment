@@ -33,8 +33,7 @@
       <div class="product-grid">
             @for (product of products$ | async; track $index) {
             <app-product-card [product]="product" [selectState]="state.isInCart(product)"
-                  (activeProduct)="setSelected($event)" [routerLink]="['/products', product.id]"
-                  [queryParams]="{category: product.category}" />
+                  (activeProduct)="setSelected($event)" [routerLink]="['/products', product.id]" />
             }
       </div>
       }

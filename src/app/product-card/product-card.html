@@ -1,15 +1,20 @@
 <div class="product-card" [ngClass]="{'selected': selectState }">
-      <img [src]="product.imageUrl" [alt]="product.name">
+      @if (product.imageUrl) {
+            <img [src]="product.imageUrl" [alt]="product.name">
+      }
+      @else {
+            <div class="image-placeholder">No image</div>
+      }
       <h3>{{ product.name }}</h3>
       <p class="blk-txt">{{ product.description }}</p>
       <p class="blk-txt">Price: ₦{{ product.price }}</p>
-      @if (product.inStock) {
+      @if (product.stock > 0) {
             <p class="in-stock">In Stock</p>
       }
       @else {
             <p class="out-of-stock">Out of Stock</p>
       }
-      <p class="blk-txt">Rating: {{ product.rating }} / 5</p>
+      <p class="blk-txt">Stock: {{ product.stock }}</p>
 
       @if (showCartBtn) {
             @if (!selectState) {

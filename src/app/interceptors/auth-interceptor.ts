@@ -2,11 +2,13 @@ import { HttpInterceptorFn } from '@angular/common/http';
 
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  const userEmail = localStorage.getItem('userEmail');
-  if (userEmail && req.url.includes('/products')) {
+  const token = localStorage.getItem('access_token');
+  const isApiRequest = req.url.includes('/api/v1/');
+
+  if (token && isApiRequest) {
     const clonedReq = req.clone({
       setHeaders: {
-        'X-User-Email': userEmail
+        Authorization: `Bearer ${token}`,
       }
     });
     return next(clonedReq);

@@ -8,7 +8,7 @@
             </div>
       }
       <h2>New Product</h2>
-      <form [formGroup]="productForm">
+      <form [formGroup]="productForm" (ngSubmit)="submitForm()">
             <label>
                   Name:
                   <input formControlName="name" />
@@ -50,7 +50,7 @@
                                     <p class="error">Field is required</p>
                               }
                               @if (productForm.controls.price.errors?.['min']) {
-                                    <p class="error">Price must be at least 50</p>
+                                    <p class="error">Price must be greater than 0</p>
                               }      
                         </ng-container>
                         
@@ -58,22 +58,14 @@
             </label>
             <br />
             <label>
-                  Category:
-                  <input formControlName="category" />
-                  @if (productForm.controls.category.touched && productForm.controls.category.dirty) {
+                  Stock:
+                  <input type="number" min="0" formControlName="stock" />
+                  @if (productForm.controls.stock.touched && productForm.controls.stock.dirty) {
                         <ng-container>
-                              @if (productForm.controls.category.errors?.['required']) {
-                                    <p class="error">Field is required</p>
+                              @if (productForm.controls.stock.errors?.['min']) {
+                                    <p class="error">Stock cannot be negative</p>
                               }
                         </ng-container>
-                  }
-            </label>
-            <br />
-            <label>
-                  InStock: 
-                  <input class="check" formControlName="inStock" type="checkbox" />
-                  @if (productForm.controls.inStock.touched && productForm.controls.inStock.dirty) {
-                        
                   }
             </label>
             <br />
@@ -82,9 +74,6 @@
                   <input formControlName="imageUrl" />
                   @if (productForm.controls.imageUrl.touched && productForm.controls.imageUrl.dirty) {
                         <ng-container>
-                              @if (productForm.controls.imageUrl.errors?.['required']) {
-                                    <p class="error">Field is required</p>
-                              }
                               @if (productForm.controls.imageUrl.errors?.['pattern']) {
                                     <p class="error">Enter a valid URL</p>
                               }      
@@ -93,43 +82,6 @@
                   }
             </label>
             <br />
-            <div formArrayName="properties" class="props">
-                  @for (property of properties.controls; track $index; let i = $index) {
-                  <div [formGroupName]="i">
-                        <label>
-                              Color:
-                              <input formControlName="color" />
-                              @if (property.get('color')?.touched && property.get('color')?.dirty) {
-                                    <ng-container>
-                                          @if (property.get('color')?.errors?.['required']) {
-                                                <p class="error">Field is required</p>
-                                          }
-                                    </ng-container>
-                              }
-                        </label>
-            
-                        <label>
-                              Weight:
-                              <input formControlName="weight" />
-                              @if (property.get('weight')?.touched && property.get('weight')?.dirty) {
-                                    <ng-container>
-                                          @if (property.get('weight')?.errors?.['required']) {
-                                                <p class="error">Field is required</p>
-                                          }
-                                    </ng-container>
-                              }
-                        </label>
-            
-                        <span (click)="removeProperty(i)">
-                              Remove Property
-                        </span>
-                        <br />
-                  </div>
-                  }
-            </div>
-
-            <span (click)="addProperty()">Add Property</span>
-            <br />
-            <button type="submit" [disabled]="productForm.invalid" (click)="submitForm()">Create Product</button>
+            <button type="submit" [disabled]="productForm.invalid">Create Product</button>
       </form>
 </div>

@@ -21,6 +21,15 @@
     border-radius: 4px;
     margin-bottom: 12px;
 }
+.image-placeholder {
+    width: 60%;
+    margin: 0 auto 12px;
+    padding: 20px 8px;
+    border-radius: 4px;
+    background-color: #f2f2f2;
+    color: #666;
+    font-size: 12px;
+}
 .product-card h3 {
     margin: 0 0 8px 0;
     font-size: 18px;

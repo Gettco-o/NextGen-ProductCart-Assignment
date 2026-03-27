@@ -19,8 +19,8 @@ export class StateService {
 
   readonly cartCount$ = this.cart$.pipe(map(cart => cart.length));
 
-  setProducts(products: Product[]): void {
-    this._products$.next([...products]);
+  setProducts(products: Product[] | null | undefined): void {
+    this._products$.next(Array.isArray(products) ? [...products] : []);
   }
 
   setSingleProduct(product: Product): void {

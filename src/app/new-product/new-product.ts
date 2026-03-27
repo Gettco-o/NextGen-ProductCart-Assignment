@@ -1,9 +1,10 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, Validators, ReactiveFormsModule, FormArray, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AsyncPipe } from '@angular/common';
 import { productService } from '../services/product';
 import { Router } from '@angular/router';
 import { StateService } from '../services/state-service';
+import { CreateProductDto } from '../interfaces/product';
 
 @Component({
   selector: 'app-new-product',
@@ -23,43 +24,42 @@ export class NewProduct {
   productForm = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(3)]],
     description: ['', [Validators.required, Validators.minLength(10)]],
-    price: [0, [Validators.required, Validators.min(50)]],
-    category: ['', Validators.required],
-    imageUrl: ['', [Validators.required, Validators.pattern(/^https?:\/\/.+\.(png|jpg|jpeg|gif|svg|webp)(\?.*)?$/i)]],
-    inStock: [true],
-    rating: [0, Validators.required],
-    properties: this.fb.array([
-      this.createProperty()
-    ])
+    price: [0, [Validators.required, Validators.min(0.01)]],
+    stock: [0, [Validators.min(0)]],
+    imageUrl: ['', [Validators.pattern(/^https?:\/\/.+/i)]],
   });
 
-  createProperty(): FormGroup {
-    return this.fb.group({
-      color: ['', Validators.required],
-      weight: ['', Validators.required]
-    });
-  }
-
-  get properties(): FormArray {
-    return this.productForm.get('properties') as FormArray;
-  }
-
-  addProperty() {
-    this.properties.push(this.createProperty());
-  }
-
-  removeProperty(index: number) {
-    this.properties.removeAt(index);
-  }
-
   submitForm() {
-    this.prodService.createProduct(this.productForm.value).subscribe({
+    if (this.productForm.invalid) {
+      this.productForm.markAllAsTouched();
+      return;
+    }
+
+    const { name, description, price, stock, imageUrl } =
+      this.productForm.getRawValue();
+
+    const payload: CreateProductDto = {
+      name: name?.trim() ?? '',
+      description: description?.trim() ?? '',
+      price: Number(price),
+      ...(stock !== null && stock !== undefined
+        ? { stock: Number(stock) }
+        : {}),
+      ...(imageUrl?.trim() ? { imageUrl: imageUrl.trim() } : {}),
+    };
+
+    this.prodService.createProduct(payload).subscribe({
       next: (res) => {
         alert('Product created successfully!');
         this.state.addProduct(res);
-        this.productForm.reset();
+        this.productForm.reset({
+          name: '',
+          description: '',
+          price: 0,
+          stock: 0,
+          imageUrl: '',
+        });
         this.router.navigate(['']);
-
       },
       error: (err) => {
         console.error(err);
