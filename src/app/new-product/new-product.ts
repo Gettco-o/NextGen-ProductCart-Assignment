@@ -20,6 +20,7 @@ export class NewProduct {
   private state = inject(StateService);
 
   error$ = this.state.error$;
+  categories$ = this.state.categories$;
 
   productForm = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(3)]],
@@ -27,7 +28,12 @@ export class NewProduct {
     price: [0, [Validators.required, Validators.min(0.01)]],
     stock: [0, [Validators.min(0)]],
     imageUrl: ['', [Validators.pattern(/^https?:\/\/.+/i)]],
+    categoryId: ['', [Validators.required]],
   });
+
+  ngOnInit() {
+    this.prodService.getAllCategories();
+  }
 
   submitForm() {
     if (this.productForm.invalid) {
@@ -35,13 +41,14 @@ export class NewProduct {
       return;
     }
 
-    const { name, description, price, stock, imageUrl } =
+    const { name, description, price, stock, imageUrl, categoryId } =
       this.productForm.getRawValue();
 
     const payload: CreateProductDto = {
       name: name?.trim() ?? '',
       description: description?.trim() ?? '',
       price: Number(price),
+      categoryId: Number(categoryId),
       ...(stock !== null && stock !== undefined
         ? { stock: Number(stock) }
         : {}),
@@ -58,6 +65,7 @@ export class NewProduct {
           price: 0,
           stock: 0,
           imageUrl: '',
+          categoryId: '',
         });
         this.router.navigate(['']);
       },

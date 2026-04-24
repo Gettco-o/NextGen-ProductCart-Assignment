@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, map } from 'rxjs';
-import { Product } from '../interfaces/product';
+import { Product, Category } from '../interfaces/product';
 
 @Injectable({ providedIn: 'root' })
 export class StateService {
@@ -10,12 +10,14 @@ export class StateService {
   private _cart$ = new BehaviorSubject<Product[]>([]);
   private _loading$ = new BehaviorSubject<boolean>(false);
   private _error$ = new BehaviorSubject<string | null>(null);
+  private _categories$ = new BehaviorSubject<Category[]>([]);
 
   readonly products$ = this._products$.asObservable();
   readonly singleProduct$ = this._singleProduct$.asObservable();
   readonly cart$ = this._cart$.asObservable();
   readonly loading$ = this._loading$.asObservable();
   readonly error$ = this._error$.asObservable();
+  readonly categories$ = this._categories$.asObservable();
 
   readonly cartCount$ = this.cart$.pipe(map(cart => cart.length));
 
@@ -26,6 +28,10 @@ export class StateService {
   setSingleProduct(product: Product): void {
     this._singleProduct$.next(product);
   } 
+
+  setCategories(categories: Category[] | null | undefined): void {
+    this._categories$.next(Array.isArray(categories) ? [...categories] : []);
+  }
 
   addProduct(product: Product): void {
     this._products$.next([...this._products$.value, product]);

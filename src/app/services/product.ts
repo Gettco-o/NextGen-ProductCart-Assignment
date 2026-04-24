@@ -14,7 +14,7 @@ import { StateService } from './state-service';
 })
 export class productService {
   private http = inject(HttpClient);
-  private readonly baseUrl = 'http://127.0.0.1:3000/api/v1/products';
+  private readonly baseUrl = 'http://127.0.0.1:3000/api/v1';
 
   private allProducts = signal<Product[]>([]);
 
@@ -26,16 +26,15 @@ export class productService {
     this.state.setLoading(true);
     this.state.setError(null);
 
-    this.http.get<unknown>(this.baseUrl)
+    this.http.get<any>(this.baseUrl+`/products`)
     .pipe(
       catchError(err => this.errorHandler.handleError(err))
     )
     .subscribe({
       next: response => {
-        const prods = this.extractProducts(response);
-        this.state.setProducts(prods);
+        this.state.setProducts(response.data);
         this.state.setLoading(false);
-        this.allProducts.set(prods);
+        this.allProducts.set(response.data);
       },
       error: () => {
         this.state.setLoading(false);
@@ -48,14 +47,14 @@ export class productService {
   getProductById(id: string) {
     this.state.setLoading(true);
     this.state.setError(null);
-
-    this.http.get<Product>(
-      `${this.baseUrl}/${id}`
+    this.http.get<any>(
+      `${this.baseUrl}/products/${id}`
     )
     .pipe(catchError(err => this.errorHandler.handleError(err)))
     .subscribe({
       next: prod => {
-        this.state.setSingleProduct(prod);
+        console.log(prod)
+        this.state.setSingleProduct(prod.data);
         this.state.setLoading(false);
       },
       error: () => {
@@ -76,39 +75,41 @@ export class productService {
 
   createProduct(product: CreateProductDto): Observable<Product> {
     return this.http
-      .post<Product>(this.baseUrl, product)
+      .post<Product>(this.baseUrl+`/products`, product)
       .pipe(catchError(err => this.errorHandler.handleError(err)));
   }
 
   updateProduct(id: string, product: UpdateProductDto): Observable<Product> {
     return this.http
-      .patch<Product>(`${this.baseUrl}/${id}`, product)
+      .patch<Product>(`${this.baseUrl}/products/${id}`, product)
       .pipe(catchError(err => this.errorHandler.handleError(err)));
   }
 
   deleteProduct(id: string): Observable<void> {
     return this.http
-      .delete<void>(`${this.baseUrl}/${id}`)
+      .delete<void>(`${this.baseUrl}/products/${id}`)
       .pipe(catchError(err => this.errorHandler.handleError(err)));
   }
 
-  private extractProducts(response: unknown): Product[] {
-    if (Array.isArray(response)) {
-      return response as Product[];
-    }
 
-    if (response && typeof response === 'object') {
-      const candidate = response as { products?: unknown; data?: unknown };
+  getAllCategories() {
+    this.state.setLoading(true);
+    this.state.setError(null);
 
-      if (Array.isArray(candidate.products)) {
-        return candidate.products as Product[];
+    this.http.get<any>(`${this.baseUrl}/categories`)
+    .pipe(
+      catchError(err => this.errorHandler.handleError(err))
+    )
+    .subscribe({
+      next: response => {
+        this.state.setCategories(response.data);
+        this.state.setLoading(false);
+      },
+      error: () => {
+        this.state.setLoading(false);
       }
+    });
 
-      if (Array.isArray(candidate.data)) {
-        return candidate.data as Product[];
-      }
-    }
-
-    return [];
+    
   }
 }

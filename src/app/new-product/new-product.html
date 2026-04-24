@@ -82,6 +82,23 @@
                   }
             </label>
             <br />
+            <label>
+                  Category:
+                  <select formControlName="categoryId">
+                        <option value="">Select a category</option>
+                        @for (category of (categories$ | async); track category.id) {
+                              <option [value]="category.id">{{ category.name }}</option>
+                        }
+                  </select>
+                  @if (productForm.controls.categoryId.touched && productForm.controls.categoryId.dirty) {
+                        <ng-container>
+                              @if (productForm.controls.categoryId.errors?.['required']) {
+                                    <p class="error">Field is required</p>
+                              }
+                        </ng-container>
+                  }
+            </label>
+            <br />
             <button type="submit" [disabled]="productForm.invalid">Create Product</button>
       </form>
 </div>
