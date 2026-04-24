@@ -104,3 +104,14 @@
     text-align: center;
     margin-bottom: 24px;
 }
+
+.btn-new-product {
+    margin-top: 16px;
+    background: #6D8B74;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.btn-new-product:hover { opacity: 0.95; }
