@@ -1,4 +1,4 @@
 export const environment = {
-  production: false,
-  apiUrl: 'http://127.0.0.1:3000/api/v1',
+  production: true,
+  apiUrl: 'https://product-api-uxm3.onrender.com/api/v1',
 };
