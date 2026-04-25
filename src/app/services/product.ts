@@ -54,7 +54,6 @@ export class productService {
     .pipe(catchError(err => this.errorHandler.handleError(err)))
     .subscribe({
       next: prod => {
-        console.log(prod)
         this.state.setSingleProduct(prod.data);
         this.state.setLoading(false);
       },

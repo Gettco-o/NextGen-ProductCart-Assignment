@@ -23,7 +23,6 @@ export class Navbar {
 
   getQuery(query: string) {
     this.searchQuery = query;
-    console.log('Search query from Navbar:', this.searchQuery);
     this.onSearch();
   }
 
