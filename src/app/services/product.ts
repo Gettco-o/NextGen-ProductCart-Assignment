@@ -8,13 +8,14 @@ import {
 import { catchError, Observable } from 'rxjs';
 import { ErrorHandlerService } from './error-handler';
 import { StateService } from './state-service';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class productService {
   private http = inject(HttpClient);
-  private readonly baseUrl = 'http://127.0.0.1:3000/api/v1';
+  private readonly baseUrl = environment.apiUrl;
 
   private allProducts = signal<Product[]>([]);
 

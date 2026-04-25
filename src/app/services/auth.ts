@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 interface LoginResponse {
   access_token: string;
@@ -15,7 +16,7 @@ export class Auth {
   private http = inject(HttpClient);
 
   private router = inject(Router);
-  private readonly baseUrl = 'http://127.0.0.1:3000/api/v1/auth';
+  private readonly baseUrl = `${environment.apiUrl}/auth`;
 
   isAuthenticated$ = this.authState.asObservable();
 
